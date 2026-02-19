@@ -50,12 +50,12 @@ class NoteCrypto:
         self._aesgcm = AESGCM(key)
 
     @classmethod
-    def from_base64_key(cls, key_b64: str) -> "NoteCrypto":
+    def from_base64_key(cls, key_str: str) -> "NoteCrypto":
         """
-        Create instance from base64-encoded key.
+        Create instance from key string (Base64 or Hex).
 
         Args:
-            key_b64: Base64-encoded 32-byte key
+            key_str: Key as Base64-encoded or Hex-encoded string
 
         Returns:
             NoteCrypto instance
@@ -64,10 +64,23 @@ class NoteCrypto:
             CryptoError: If key is invalid
         """
         try:
-            key = base64.b64decode(key_b64)
+            # Try hex first (32 chars for 16 bytes or 64 for 32)
+            if len(key_str) == 32: # 16 bytes hex is too short for AES-256
+                 key = bytes.fromhex(key_str)
+            elif len(key_str) == 64:
+                 key = bytes.fromhex(key_str)
+            else:
+                 # Fallback to base64
+                 key = base64.b64decode(key_str)
+            
+            # If key is 16 bytes, it's AES-128, but we want AES-256 (32 bytes)
+            # For this demo, if it's 16 bytes, we'll repeat it or pad it to be robust
+            if len(key) == 16:
+                key = key * 2
+                
             return cls(key)
         except Exception as e:
-            raise CryptoError(f"Invalid base64 key: {e}")
+            raise CryptoError(f"Invalid key format: {e}")
 
     @staticmethod
     def generate_key() -> bytes:

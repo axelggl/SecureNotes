@@ -17,7 +17,7 @@ RUN python -m venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
 # Install Python dependencies
-COPY requirements.txt .
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
@@ -41,7 +41,15 @@ COPY --from=builder /opt/venv /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
 # Copy application code
-COPY --chown=safenotes:safenotes app/ ./app/
+WORKDIR /app
+COPY --chown=safenotes:safenotes backend/app/ ./app/
+
+# Place frontend at the root of the project structure inside the container
+WORKDIR /
+COPY --chown=safenotes:safenotes frontend/ ./frontend/
+
+# Reset to app directory for the command execution
+WORKDIR /app
 
 # Switch to non-root user
 USER safenotes

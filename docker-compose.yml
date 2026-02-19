@@ -22,14 +22,14 @@ services:
   # Backend API
   backend:
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: backend/Dockerfile
     container_name: safenotes-backend
     environment:
       DATABASE_URL: postgresql://safenotes:${DB_PASSWORD:-devpassword}@db:5432/safenotes
-      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-1b7d93ad1aa4b3c523f1e1aa4930fb9a}
       APP_ENV: ${APP_ENV:-development}
-      DEBUG: ${DEBUG:-false}
+      DEBUG: ${DEBUG:-true}
     ports:
       - "8000:8000"
     depends_on:

@@ -22,6 +22,18 @@ Le développement a suivi un backlog orienté sécurité avec des critères d'ac
 - [Détails du Backlog Sécurité](backlog_securite.md)
 
 ## 4. Implémentation DevSecOps
+
+### Stratégie Shift Left & Shift Right
+Le projet met en œuvre une sécurité omniprésente tout au long du cycle de vie (S-SDLC) :
+
+| Approche | Phase | Outils / Actions | Bénéfice Sécurité |
+| :--- | :--- | :--- | :--- |
+| **Shift Left** | Conception | EBIOS / Backlog Sécurité | Sécurité par design (Privacy by Design). |
+| **Shift Left** | Code | Bandit / Ruff / Gitleaks | Détection précoce des failles et secrets. |
+| **Shift Left** | Build | Pytest (Crypto & Headers) | Validation automatique des fonctions critiques. |
+| **Shift Right** | Pré-Prod | OWASP ZAP (DAST) | Test d'intrusion automatisé sur l'app active. |
+| **Shift Right** | Ops | Healthchecks / Dashboard | Surveillance de la disponibilité et des KRIs. |
+
 ### Pipeline de Sécurité
 Un pipeline CI/CD automatisé effectue les contrôles suivants à chaque commit :
 - Scan SAST (Bandit / Ruff).

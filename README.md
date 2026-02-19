@@ -1,7 +1,9 @@
 # SecureNotes - Projet Fil Rouge DevSecOps
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=axelggl_SecureNotes&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=axelggl_SecureNotes)
+
 ## Description
-SecureNotes est une application web moderne et hautement sécurisée conçue pour le stockage et la gestion de notes confidentielles. Ce projet met en œuvre les principes du cycle de vie du développement sécurisé (S-SDLC).
+SecureNotes est une application web moderne et sécurisée conçue pour le stockage et la gestion de notes confidentielles. Ce projet met en œuvre les principes du cycle de vie du développement sécurisé (S-SDLC).
 
 ## Architecture (Simplifiée)
 ```mermaid
@@ -16,8 +18,9 @@ graph TD
     end
     
     subgraph "Pipeline DevSecOps"
-    Git[Git / GitHub] -->|Push| SAST[Bandit / Ruff Scan]
+    Git[Git / GitHub] -->|Push| SAST[Bandit / SonarQube]
     SAST -->|Check| Secrets[Gitleaks Secret Scan]
+    Secrets -->|Deploy| DAST[OWASP ZAP Scan]
     end
 ```
 - **Frontend :** HTML/JS statique (Client-side encryption/decryption)
@@ -26,9 +29,10 @@ graph TD
 - **Sécurité :** Argon2id (Auth), AES-256 (Chiffrement), SlowAPI (Rate-limiting).
 
 ## Pipeline DevSecOps (GitHub Actions)
-- **SAST (Static Analysis Security Testing):** Bandit, Ruff.
+- **SAST (Static Analysis Security Testing):** Bandit, Ruff, **SonarCloud** (Qualité & Dette).
 - **Secret Scanning :** Gitleaks.
 - **DCA (Dynamic Content Analysis):** Pytest security focus.
+- **DAST (Dynamic Analysis Security Testing):** **OWASP ZAP** (Tests d'intrusion API).
 
 ## Installation & Lancement
 ### Prérequis

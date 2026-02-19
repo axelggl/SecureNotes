@@ -22,3 +22,8 @@ SecureNotes est une application web de gestion de notes sécurisées, permettant
 
 ## Gestion des Accès
 *   Pas de persistance des clés de déchiffrement en mémoire vive au-delà de la session utilisateur si possible.
+
+## Sécurité de la Supply Chain (SCA)
+*   **Analyse des dépendances :** Utilisation de l'analyse native de GitHub (Dependabot) pour identifier les CVEs dans les bibliothèques du `requirements.txt`.
+*   **Immuabilité :** Versions des dépendances "gelées" pour prévenir l'injection de code malveillant via mise à jour incontrôlée.
+*   **Principe du moindre privilège :** Le Dockerfile utilise une image `slim` et un utilisateur non-root pour réduire la surface d'attaque système.

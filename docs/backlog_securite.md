@@ -17,6 +17,14 @@
 *   [ ] La documentation de la fonctionnalité inclut les aspects sécurité.
 *   [ ] Aucun secret (clé API, mot de passe) n'est présent dans le commit.
 
+## Security Quality Gate (SonarCloud)
+
+Pour qu'une Story soit considérée comme "Done" (DoD), elle doit respecter les seuils suivants lors de l'analyse automatisée :
+*   **Reliability Rating :** A (0 nouveau bug critique).
+*   **Security Rating :** A (0 nouvelle vulnérabilité).
+*   **Security Hotspots Reviewed :** 100% (Vérification manuelle des zones sensibles).
+*   **Code Coverage :** > 80% sur les nouvelles lignes de code.
+
 ## Definition of Ready (DoR) Sécurité
 
 *   [ ] Les exigences de sécurité (Confidentialité, Intégrité, Disponibilité) sont identifiées.

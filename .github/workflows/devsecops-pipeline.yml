@@ -57,9 +57,9 @@ jobs:
 
       - name: Build and Run API
         env:
-          ENCRYPTION_KEY: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef" # 64-char hex key for CI
           DB_PASSWORD: "devpassword"
         run: |
+          export ENCRYPTION_KEY=$(openssl rand -hex 32)
           docker compose up -d backend
           sleep 15
 

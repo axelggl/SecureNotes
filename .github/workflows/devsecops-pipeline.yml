@@ -57,7 +57,7 @@ jobs:
 
       - name: Build and Run API
         env:
-          ENCRYPTION_KEY: "test_key_for_ci_pipeline_32_bytes_long" # Dummy key for CI
+          ENCRYPTION_KEY: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef" # 64-char hex key for CI
           DB_PASSWORD: "devpassword"
         run: |
           docker compose up -d backend
@@ -89,7 +89,7 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t securenotes-backend:latest ./backend
+          docker build -f backend/Dockerfile -t securenotes-backend:latest .
           # Optionnel : docker push <registry>/securenotes-backend:latest
 
   deploy-staging:

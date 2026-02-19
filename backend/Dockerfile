@@ -2,7 +2,7 @@
 # Uses multi-stage build for smaller final image
 
 # Build stage
-FROM python:3.12-slim as builder
+FROM python:3.12-slim AS builder
 
 WORKDIR /app
 
@@ -23,7 +23,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 
 
 # Production stage
-FROM python:3.12-slim as production
+FROM python:3.12-slim AS production
 
 # Security: Run as non-root user
 RUN groupadd -r safenotes && useradd -r -g safenotes safenotes

@@ -60,8 +60,8 @@ jobs:
           ENCRYPTION_KEY: "test_key_for_ci_pipeline_32_bytes_long" # Dummy key for CI
           DB_PASSWORD: "devpassword"
         run: |
-          docker-compose up -d backend
-          sleep 10 # Attendre que l'API soit prête
+          docker compose up -d backend
+          sleep 15 # Attendre que l'API soit prête
 
       - name: OWASP ZAP API Scan
         uses: zaproxy/action-api-scan@v0.7.0

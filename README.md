@@ -21,7 +21,7 @@ graph TD
     end
 ```
 - **Frontend :** HTML/JS statique (Client-side encryption/decryption)
-- **Backend :** FastAPI (Python 3.11)
+- **Backend :** FastAPI (Python 3.12)
 - **Database :** PostgreSQL 16 (Hébergé par Docker)
 - **Sécurité :** Argon2id (Auth), AES-256 (Chiffrement), SlowAPI (Rate-limiting).
 
@@ -33,7 +33,7 @@ graph TD
 ## Installation & Lancement
 ### Prérequis
 - Docker Desktop
-- Python 3.11+ (local)
+- Python 3.12+ (local)
 
 ### Lancement avec Docker (Recommandé)
 1.  Clonage du projet : `git clone <repo-url>`

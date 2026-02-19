@@ -1,0 +1,23 @@
+# Gemini CLI
+GEMINI.md
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# Databases
+backend/safenotes.db
+
+# Environment variables
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Misc
+consignes.txt

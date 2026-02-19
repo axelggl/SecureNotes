@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Security headers via meta tags -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; frame-ancestors 'none'; form-action 'self';">
+    <meta name="referrer" content="no-referrer">
+
+    <title>SafeNotes - Secure Note Sharing</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SafeNotes</h1>
+            <p class="subtitle">Share secrets securely. One-time access. Auto-expiring.</p>
+        </header>
+
+        <main>
+            <!-- Create Note Section -->
+            <section id="create-section" class="card">
+                <h2>Create a Secure Note</h2>
+                <form id="create-form">
+                    <div class="form-group">
+                        <label for="content">Your Secret Note</label>
+                        <textarea
+                            id="content"
+                            name="content"
+                            rows="6"
+                            maxlength="10240"
+                            placeholder="Enter your confidential message..."
+                            required
+                        ></textarea>
+                        <span class="char-count"><span id="char-count">0</span> / 10,240</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password Protection (optional)</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            minlength="8"
+                            maxlength="128"
+                            placeholder="Minimum 8 characters"
+                            autocomplete="new-password"
+                        >
+                        <span class="hint">Leave empty for no password protection</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expiration">Expiration</label>
+                        <select id="expiration" name="expiration">
+                            <option value="1h">1 Hour</option>
+                            <option value="24h" selected>24 Hours</option>
+                            <option value="7d">7 Days</option>
+                            <option value="burn">Burn After Reading</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" id="create-btn" class="btn btn-primary">
+                        Create Secure Note
+                    </button>
+                </form>
+            </section>
+
+            <!-- Success Section (hidden by default) -->
+            <section id="success-section" class="card hidden">
+                <h2>Note Created Successfully</h2>
+                <div class="success-content">
+                    <p>Share this link with the recipient:</p>
+                    <div class="link-box">
+                        <input type="text" id="note-link" readonly>
+                        <button type="button" id="copy-btn" class="btn btn-secondary">Copy</button>
+                    </div>
+                    <div class="note-info">
+                        <p><strong>Expires:</strong> <span id="expires-at"></span></p>
+                        <p><strong>Password Protected:</strong> <span id="is-protected"></span></p>
+                        <p><strong>Burn After Reading:</strong> <span id="is-burn"></span></p>
+                    </div>
+                    <div class="warning">
+                        <strong>Important:</strong> This link will only work once.
+                        Make sure to copy it now.
+                    </div>
+                    <button type="button" id="new-note-btn" class="btn btn-primary">
+                        Create Another Note
+                    </button>
+                </div>
+            </section>
+
+            <!-- Access Note Section (for /note/{token} URLs) -->
+            <section id="access-section" class="card hidden">
+                <h2>Access Secure Note</h2>
+
+                <!-- Password form (shown if password required) -->
+                <form id="password-form" class="hidden">
+                    <div class="form-group">
+                        <label for="access-password">This note is password protected</label>
+                        <input
+                            type="password"
+                            id="access-password"
+                            name="password"
+                            placeholder="Enter password"
+                            required
+                            autocomplete="current-password"
+                        >
+                        <span id="password-error" class="error-hint hidden">Invalid password</span>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Access Note</button>
+                </form>
+
+                <!-- Note content (shown after successful access) -->
+                <div id="note-content" class="hidden">
+                    <div class="note-display">
+                        <pre id="note-text"></pre>
+                    </div>
+                    <div class="note-meta">
+                        <p><strong>Created:</strong> <span id="created-at"></span></p>
+                    </div>
+                    <div id="burn-warning" class="warning hidden">
+                        This note has been permanently deleted after reading.
+                    </div>
+                    <button type="button" id="back-home-btn" class="btn btn-secondary">
+                        Create a New Note
+                    </button>
+                </div>
+            </section>
+
+            <!-- Error Section -->
+            <section id="error-section" class="card hidden">
+                <h2>Error</h2>
+                <p id="error-message" class="error-text"></p>
+                <button type="button" id="error-home-btn" class="btn btn-primary">
+                    Back to Home
+                </button>
+            </section>
+        </main>
+
+        <footer>
+            <p>SafeNotes - Security by Design</p>
+            <p class="footer-note">All notes are encrypted at rest. No logs of content are kept.</p>
+        </footer>
+    </div>
+
+    <script src="/app.js"></script>
+</body>
+</html>

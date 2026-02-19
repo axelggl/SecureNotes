@@ -71,6 +71,7 @@ jobs:
           format: openapi
           target: 'http://localhost:8000/openapi.json'
           fail_action: false # Ne pas bloquer la pipeline pour la démo, mais rapporter les failles
+          allow_issue_writing: false # Empêcher la création automatique d'issues pour éviter l'erreur de permission
 
   build-and-push:
     needs: [security-scans, secret-scan, dast-scan]
